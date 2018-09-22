@@ -1,0 +1,62 @@
+Name: Joel Mire
+NetID: jrm103
+Hours Spent: 12
+Consulted With: Andrew Yeoung, Ulises Espino, Avishek Khan, Sarah Briggs
+Resources Used: Stack Overflow, links in project page
+Impressions: challenging...more emphasis on the preceding APTs would have made this more manageable.
+----------------------------------------------------------------------
+Problem 1: 
+
+The HuffViewer class facilitated the testing of my compress and decompress methods in HuffProcessor class.
+Additionally, there are many files in the data directories I pulled in from git which I could compress
+and decompress, comparing to see whether my implementations were working both significantly (saved space for 
+compress) and precisely (unhuffing a huffed file would result in the orginal file). I focused on the files
+associated with Melville (.txt, .txt.hf, .txt.hfuf, etc). I created my own variations along the way, testing 
+compound compressions as an interesting side-interest/case.
+
+Problem 2: Benchmark and analyze your code
+
+	Calgary:
+	alph size		%saved
+	81				35
+	82				41
+	96				40
+	256				40
+	98				39
+	256				40
+
+	It does not appear that alph size has a significant effect on the efficacy of the Huffman compression based on this data.
+
+	Waterloo:
+	alph size		%saved
+	155				6
+	230				8
+	256				9
+	253				8	
+	20				9
+	256				14
+	18				8
+	249				10
+	
+	It does not appear that alph size has a significant effect on the efficacy of the Huffman compression based on this data.
+
+The length of the files does have an effect on the time of the compression. Time is in the thousandth place for files of bit size
+< 100,000, but in the tenths place for files over bit size >1,000,000.
+
+Problem 3: Text vs. Binary 
+
+The collected data from testing the Calgary directory (text) indicates that 43.76% space was saved with compression.
+The collected data from testing the Waterloo directory (images) indicates that 20.97% space was saved with compression.
+Therefore, it is reasonable to conclude that compressing text files is more effective than compressing files with images. 
+I suspect that this is due to the fact that there are more pixel units than there are text characters, so the coding tree
+would be larger and less optimized.
+
+Problem 4: Compressing compressed files
+
+Based on my tests, it is possible to compress already compressed text and images files.
+However, additional compressions have marginal effects after the first compression, usually
+in the range of 1-4% additional space saved. This is likely due to the fact that the compression
+algorithm makes local decisions that could be improved upon in subseauent compressions to a small degree.
+The local decisions do lead to a globally optimal solution, but there may be circumstantial 
+improvements just by creating a new codings tree for a subsequent compression. Overall,
+additional compressions are not effective or worthwhile.
